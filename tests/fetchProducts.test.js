@@ -10,11 +10,11 @@ describe('1 - Teste a função fecthProducts', () => {
   });
 
    it('testa se a função foi chamada com o argumento "computador"', async() => {
-    const info = await fetchProducts('computador');
-    expect(fetch).toHaveBeenCalled();
+     await fetchProducts('computador');
+     const url = 'https://api.mercadolibre.com/sites/MLB/search?q=computador'
+    expect(fetch).toHaveBeenCalledWith(url);
   }); 
   it('a função fetch utiliza o endpoint correto', async () => {
-    expect.assertions(1);
     const info = await fetchProducts('computador');
     const url = "https://api.mercadolibre.com/sites/MLB/search?q=computador";
     expect(fetch).toBeCalledWith(url);
@@ -23,11 +23,11 @@ describe('1 - Teste a função fecthProducts', () => {
     const info = await fetchProducts('computador');
     expect(info).toBe(computadorSearch);
   })
-  it('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: You must provide an url. ', async() => {
+  it('Teste se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: You must provide an url.', async() => {
     try{
-      const invalidInfo = await fetchProducts('You must provide an url');
+      await fetchProducts();
     }catch (error) {
-      expect(error).toEqual('You must provide an url')
+      expect(error).toEqual(new Error('You must provide an url'))
     }
     
     //expect().toThrow(new Error('You must provide an url'));
