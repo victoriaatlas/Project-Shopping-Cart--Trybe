@@ -103,7 +103,7 @@ body {
 }
 
 .item .item__sku {
-  display: none;
+ /*  display: none; */
 }
 
 .item .item__title {
