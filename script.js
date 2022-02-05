@@ -24,9 +24,9 @@ function createProductItemElement({ sku, name, image }) { //  recebe um obj como
   produtos.appendChild(section);
 }
 
-function getSkuFromProductItem(item) {
+/* function getSkuFromProductItem(item) {
   return item.querySelector('span.item__sku').innerText; // filtra  && pega texto no spam
-}
+} */
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
