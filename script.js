@@ -24,34 +24,40 @@ function createProductItemElement({ sku, name, image }) { //  recebe um obj como
   produtos.appendChild(section);
 }
 
-/* function getSkuFromProductItem(item) {
-  return item.querySelector('span.item__sku').innerText; // filtra  && pega texto no spam
-} */
+ function getSkuFromProductItem(item) {
+  return item.querySelector('span.item__sku').innerText; // filtra  && pega texto do spam
+}
 
 function cartItemClickListener(event) {
   // coloque seu código aqui
-  const carrin = querySelector('.cart__item');
-  event.target.classList.add(carrin);
+
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
   const li = document.createElement('li');
-  const lista = document.querySelector('.cart_Items');
+  const lista = document.querySelector('.cart__items');
   li.className = 'cart__item';
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
-  li.addEventListener('click', cartItemClickListener);
+  li.addEventListener('click', cartItemClickListener);// ele tira elemento da lista
   lista.appendChild(li);
 }
 
-function intemOnCart(lista) {
-  lista.forEach((elements) => {
-    createCartItemElement({
-      sku: elements.id,
-      name: elements.title,
-      Saleprice: elements.price,
+const addOnCart = async () => { // feito com ajuda de Guilherme Azevedo
+  const valor = document.querySelectorAll('.item'); // pegando todos os valores dentro do elemento html com a classe "item"
+  valor.forEach((element) => { // forEach que passa por todos os elementos com classe ".item"
+    const pegaIdd = getSkuFromProductItem(element); // chama a função que 
+    const pegaBotao = element.querySelector('button');
+    pegaBotao.addEventListener('click', async () => {
+      const dataAPI = await fetchItem(pegaIdd);
+      const obj = {
+        sku: dataAPI.id,
+        name: dataAPI.title,
+        salePrice: dataAPI.price,
+      };
+      return createCartItemElement(obj);
     });
   });
-}
+};
 function addList(product) { // função que recebe minha API e cria um obj
  product.forEach((element) => { // for que passa por toda minha API
    createProductItemElement({ // puxa a função createProductItemElement e formata minha API como obj que será entregue como paramentro da função
@@ -62,10 +68,9 @@ function addList(product) { // função que recebe minha API e cria um obj
  });
 }
 window.onload = async () => {
-  const products = await fetchProducts('computador');
+  const products = await fetchProducts('bosta em lata');
   // console.log(products);
   addList(products.results);
   const items = await fetchItem('MLB1341706310');
-  // console.log(items);
-  intemOnCart(items.results);
- };
+  await addOnCart();
+};
