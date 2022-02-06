@@ -29,8 +29,8 @@ function createProductItemElement({ sku, name, image }) { //  recebe um obj como
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
-
+  event.target.remove('cart__item');
+ // event.target.classList.remove('cart__item');
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -73,4 +73,5 @@ window.onload = async () => {
   addList(products.results);
   const items = await fetchItem('MLB1341706310');
   await addOnCart();
+  cartItemClickListener();
 };
