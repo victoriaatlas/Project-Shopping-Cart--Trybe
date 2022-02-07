@@ -29,7 +29,7 @@ function createProductItemElement({ sku, name, image }) { //  recebe um obj como
 }
 
 function cartItemClickListener(event) {
-  event.target.remove('cart__item');
+  event.target.remove();
  // event.target.classList.remove('cart__item');
 }
 
@@ -40,6 +40,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);// ele tira elemento da lista
   lista.appendChild(li);
+  saveCartItems(lista.innerHTML);
 }
 
 const addOnCart = async () => { // feito com ajuda de Guilherme Azevedo
@@ -72,6 +73,9 @@ window.onload = async () => {
   // console.log(products);
   addList(products.results);
   const items = await fetchItem('MLB1341706310');
-  await addOnCart();
-  cartItemClickListener();
+  addOnCart();
+  const ol = document.querySelector('.cart__items');
+   ol.innerHTML = getSavedCartItems('cartItems');
+   const li = document.querySelectorAll('li');
+   li.forEach((element) => element.addEventListener('click', cartItemClickListener));// linha de codigo feita com a explicação de Guilherme Azevedo
 };
