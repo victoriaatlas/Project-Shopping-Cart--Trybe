@@ -10,7 +10,7 @@ describe('2 - Teste a função fecthItem', () => {
   it('a função fetchIntem com o argumento do item "MLB1615760527" e teste se fetch foi chamado', async () => {
     await fetchItem('MLB1615760527');
     const url = 'https://api.mercadolibre.com/items/MLB1615760527';
-    expect(fetch).toHaveBeenCalledWith(url);
+    expect(fetch).toHaveBeenCalled();
   })
    it('ao chamar a função fetchItem com o argumento do item "MLB1615760527", a função fecth ultiliza o endpoint "https://api.mercadolibre.com/items/MLB1615760527 "', async ()=> {
      await fetchItem('MLB1615760527');

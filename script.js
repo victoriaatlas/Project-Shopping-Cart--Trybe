@@ -30,7 +30,7 @@ function createProductItemElement({ sku, name, image }) { //  recebe um obj como
 
 function cartItemClickListener(event) {
   event.target.remove();
- // event.target.classList.remove('cart__item');
+ // event.target.classList.remove('cart__item'); // remove a classe
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -40,7 +40,7 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.innerText = `SKU: ${sku} | NAME: ${name} | PRICE: $${salePrice}`;
   li.addEventListener('click', cartItemClickListener);// ele tira elemento da lista
   lista.appendChild(li);
-  saveCartItems(lista.innerHTML);
+  saveCartItems(lista.innerHTML); // linha de codigo feita com ajuda de Guilherme Azevedo
 }
 
 const addOnCart = async () => { // feito com ajuda de Guilherme Azevedo
