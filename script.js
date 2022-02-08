@@ -29,7 +29,7 @@ function createProductItemElement({ sku, name, image }) { //  recebe um obj como
 }
 
 function cartItemClickListener(event) {
-  event.target.remove();
+  event.target.remove(); // remove o elemento
  // event.target.classList.remove('cart__item'); // remove a classe
 }
 
@@ -46,8 +46,8 @@ function createCartItemElement({ sku, name, salePrice }) {
 const addOnCart = async () => { // feito com ajuda de Guilherme Azevedo
   const valor = document.querySelectorAll('.item'); // pegando todos os valores dentro do elemento html com a classe "item"
   valor.forEach((element) => { // forEach que passa por todos os elementos com classe ".item"
-    const pegaIdd = getSkuFromProductItem(element); // chama a função que 
-    const pegaBotao = element.querySelector('button');
+    const pegaIdd = getSkuFromProductItem(element); // chama a função que retorna o texto do id
+    const pegaBotao = element.querySelector('button'); // const que pega os elementos buttons no element(".item")
     pegaBotao.addEventListener('click', async () => {
       const dataAPI = await fetchItem(pegaIdd);
       const obj = {
@@ -67,7 +67,19 @@ function addList(product) { // função que recebe minha API e cria um obj
      image: element.thumbnail, // recebe como valor chave: thumbnail 
    });
  });
-}
+} 
+
+const cleanAll = () => {
+const button = document.querySelector('.empty-cart');
+button.addEventListener('click', () => {
+  const li = document.querySelectorAll('li');
+  li.forEach((element) => {
+    // const li = element.querySelector('li');
+    element.remove();
+  });
+});
+};
+
 window.onload = async () => {
   const products = await fetchProducts('bosta em lata');
   // console.log(products);
@@ -78,4 +90,5 @@ window.onload = async () => {
    ol.innerHTML = getSavedCartItems('cartItems');
    const li = document.querySelectorAll('li');
    li.forEach((element) => element.addEventListener('click', cartItemClickListener));// linha de codigo feita com a explicação de Guilherme Azevedo
+   cleanAll();
 };
